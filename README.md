@@ -2,6 +2,8 @@
 
 wazzup-sdk-go is the 'Wazzup Real Estate' SDK for the Go programming language.
 
+Check out the [releases](https://github.com/hellocave/wazzup-sdk-go/releases) for a list of released versions.
+
 ## Installing
 
 Use `go get` to install the SDK and add it to your `GOPATH` workspace or
