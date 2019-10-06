@@ -41,18 +41,23 @@ func NewConnector(token string) *Connector {
 }
 
 // call a GET endpoint for a given service
-func (c *Connector) callGet(endpoint string, service string) (*Response, error) {
+func (c *Connector) callGet(endpoint string, service string) (*Response, string, error) {
 	url, err := parseURL(endpoint, service, c.token)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
 	r, err := http.Get(url)
 	if err != nil {
-		return nil, fmt.Errorf("fetch error: %s", err)
+		return nil, "", fmt.Errorf("fetch error: %s", err)
 	}
 
-	return parseResponse(r.Body)
+	res, err := parseResponse(r.Body)
+	if err != nil {
+		return nil, "", err
+	}
+
+	return res, url, nil
 }
 
 // call a POST endpoint for a given service

@@ -126,7 +126,7 @@ type Property struct {
 // GetPropertySummary fetches a summary of properties for a realtor
 func (c *Connector) GetPropertySummary(realtorID int) (*Response, error) {
 	uri := fmt.Sprintf("/realestatesummary/?realtorid=%d", realtorID)
-	summary, err := c.callGet(uri, "output")
+	summary, _, err := c.callGet(uri, "output")
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch summary: %s", err)
 	}
@@ -135,12 +135,12 @@ func (c *Connector) GetPropertySummary(realtorID int) (*Response, error) {
 }
 
 // GetProperty fetches a single property's details
-func (c *Connector) GetProperty(realtorID int, propertyID int) (*Response, error) {
+func (c *Connector) GetProperty(realtorID int, propertyID int) (*Response, string, error) {
 	uri := fmt.Sprintf("/realestate/?realtorid=%d&id=%d", realtorID, propertyID)
-	property, err := c.callGet(uri, "output")
+	property, url, err := c.callGet(uri, "output")
 	if err != nil {
-		return nil, fmt.Errorf("could not fetch property details: %s", err)
+		return nil, "", fmt.Errorf("could not fetch property details: %s", err)
 	}
 
-	return property, nil
+	return property, url, nil
 }

@@ -29,13 +29,12 @@ type Contract struct {
 
 // IsActive checks whether a contract has an active status
 func (c *Contract) IsActive() bool {
-	fmt.Println(c.Status)
 	return c.Status == "Active"
 }
 
 // GetContracts fetches all available contracts
 func (c *Connector) GetContracts() (*Response, error) {
-	contracts, err := c.callGet("/mediacontract", "activate")
+	contracts, _, err := c.callGet("/mediacontract", "activate")
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch contracts: %s", err)
 	}
