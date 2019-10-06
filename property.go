@@ -52,6 +52,14 @@ type Price struct {
 	RentSpecification     []string `xml:"RentSpecification>Specification"` // INCL_VAT, INDEXED, INCL_SERVICE_COSTS, INCL_GAS, INCL_ELECTRICITY, INCL_WATER, INCL_FURNITURE
 }
 
+// Facilities represents a property listing's facilities
+type Facilities struct {
+	XMLName     xml.Name `xml:"Facilities"`
+	Balcony     bool     `xml:"Balcony>Available"`
+	Furnished   string   `xml:"FurnitureType"`
+	Upholstered string   `xml:"UpholsteredType"`
+}
+
 // Offer represents offer information for a property listing
 type Offer struct {
 	XMLName        xml.Name `xml:"Offer"`
@@ -61,22 +69,28 @@ type Offer struct {
 	IsForSale      bool
 	IsSpecial      bool
 	IsTopper       bool
+	IsIncentive    bool
 	StartDate      xmldate.CustomTime `xml:"AvailableFromDate"`
 	EndDate        xmldate.CustomTime `xml:"AvailableUntilDate"`
 }
 
-// Location contains info on a property listing's location
-type Location struct {
+// Address contains info on a property listing's address
+type Address struct {
 	XMLName    xml.Name `xml:"Address"`
 	Street     string   `xml:"Streetname>Translation"`
 	Number     string   `xml:"HouseNumber"`
 	Addition   string   `xml:"HouseNumberPostfix"`
 	PostalCode string
-	District   string
-	City       string  `xml:"CityName>Translation"`
-	Country    string  `xml:"CountryCode"`
-	Lat        float64 `xml:"Latitude"`
-	Lng        float64 `xml:"Longitude"`
+	District   string `xml:"District>Translation"`
+	City       string `xml:"CityName>Translation"`
+	Country    string `xml:"CountryCode"`
+}
+
+// Location contains info on a property listing's location
+type Location struct {
+	XMLName xml.Name `xml:"GeoAddressDetails"`
+	Lat     float64  `xml:"Coordinates>Latitude"`
+	Lng     float64  `xml:"Coordinates>Longitude"`
 }
 
 // Info contains a property's additional information
@@ -118,8 +132,10 @@ type Property struct {
 	Bedrooms     int64         `xml:"Counts>CountOfBedrooms"`
 	Rooms        int64         `xml:"Counts>CountOfRooms"`
 	Descriptions *Descriptions
-	Price        *Price    `xml:"Financials"`
-	Location     *Location `xml:"Location>Address"`
+	Price        *Price      `xml:"Financials"`
+	Address      *Address    `xml:"Location>Address"`
+	Facilities   *Facilities `xml:"Facilities"`
+	Location     *Location   `xml:"LocationDetails>GeoAddressDetails"`
 	Offer        *Offer
 	Info         *Info `xml:"PropertyInfo"`
 }

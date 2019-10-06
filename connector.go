@@ -85,7 +85,7 @@ func parseURL(endpoint string, service string, token string) (string, error) {
 		return "", errors.New("no token supplied")
 	}
 
-	return fmt.Sprintf("%s/%s.svc/1/0/%s/%s",
+	return fmt.Sprintf("%s/%s.svc/16/0/%s/%s",
 		stripSlashes(baseURL), serv, token, stripSlashes(endpoint)), nil
 }
 
