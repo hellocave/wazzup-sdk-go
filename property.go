@@ -3,6 +3,7 @@ package wazzup
 import (
 	"encoding/xml"
 	"fmt"
+	"net/url"
 
 	xmldate "github.com/datainq/xml-date-time"
 )
@@ -143,4 +144,16 @@ func (c *Connector) GetProperty(realtorID int, propertyID int) (*Response, strin
 	}
 
 	return property, url, nil
+}
+
+// ConfirmProperty confirms processing of a property
+func (c *Connector) ConfirmProperty(realtorID int, propertyID int, message string) error {
+	uri := fmt.Sprintf("/realestate/?realtorid=%d&id=%d&action=confirm&url=%s&message=%s",
+		realtorID, propertyID, "", url.QueryEscape(message))
+	_, err := c.callPost(uri, "output", []byte{})
+	if err != nil {
+		return fmt.Errorf("could not confirm property: %s", err)
+	}
+
+	return nil
 }
