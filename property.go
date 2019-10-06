@@ -45,7 +45,7 @@ type Price struct {
 	XMLName               xml.Name `xml:"Financials"`
 	RentPrice             int64
 	RentType              string `xml:"RentPriceType"` // PRICE_PER_MONTH, PRICE_PER_YEAR, PRICE_PER_QUARTER, PRICE_PER_HALF_YEAR, PRICE_PER_CONTRACT, M2_PER_MONTH, M2_PER_YEAR
-	PurchasePrice         int64
+	PurchasePrice         float32
 	PurchaseCondition     string   // COSTS_BUYER, FREE_ON_NAME
 	PurchaseSpecification string   // EXCLUSIVE_INTERIM_INTEREST, VAT_FISCALED, VAT_INCLUSIVE, INDEXED
 	PriceCode             string   // HIGHER_BUDGET, PUBLIC_AUCTION, PRICE_IN_CONSULTATION, PRICE_TO_BE_NEGOTIATED, PRICE_ON_REQUEST, ANY_PLAUSIBLE_BID, FIXED_PRICE, BY_TENDER, ASKING_PRICE
