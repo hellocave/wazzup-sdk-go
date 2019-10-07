@@ -40,6 +40,18 @@ type Agency struct {
 	Website string `xml:"WebsiteURL"`
 }
 
+// Agent represents a property listing's assigned agent
+type Agent struct {
+	XMLName   xml.Name `xml:"Person"`
+	FirstName string
+	LastName  string
+	Phone     string `xml:"Mobile"`
+	Email     string
+	Gender    string
+	Birthdate string `xml:"DateOfBirth"`
+	Avatar    string `xml:"PhotoURL"`
+}
+
 // Price represents a property listing's financial data
 type Price struct {
 	XMLName               xml.Name `xml:"Financials"`
@@ -129,6 +141,7 @@ type Property struct {
 	Area         int64         `xml:"AreaTotals>EffectiveArea"`
 	Attachments  []*Attachment `xml:"Attachments>Attachment"`
 	Agency       *Agency       `xml:"Contact>Agency"`
+	Agent        *Agent        `xml:"Contact>Person"`
 	Bedrooms     int64         `xml:"Counts>CountOfBedrooms"`
 	Rooms        int64         `xml:"Counts>CountOfRooms"`
 	Descriptions *Descriptions
